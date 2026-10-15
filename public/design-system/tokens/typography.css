@@ -1,0 +1,42 @@
+/* Bumi Kala Charta — typography.
+   One family does the talking: IBM Plex Sans (guideline).
+   IBM Plex Mono is reserved for machine facts — coordinates, datums, accuracies, eyebrow labels. */
+:root{
+  --font-sans:'IBM Plex Sans',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --font-mono:'IBM Plex Mono',ui-monospace,'SF Mono',Menlo,monospace;
+  --font-display:var(--font-sans);
+  --font-body:var(--font-sans);
+  --font-data:var(--font-mono);
+
+  --weight-regular:400;
+  --weight-medium:500;
+  --weight-semibold:600;
+  --weight-bold:700;
+
+  /* type ramp — display is tight and negative-tracked, body stays open */
+  --text-display-1:56px;
+  --text-display-2:44px;
+  --text-display-3:34px;
+  --text-title-1:30px;
+  --text-title-2:24px;
+  --text-title-3:18px;
+  --text-body-lg:17px;
+  --text-body:15px;
+  --text-body-sm:13.5px;
+  --text-caption:12px;
+  --text-eyebrow:11px;
+  --text-micro:10px;
+
+  --leading-display:1.06;
+  --leading-title:1.2;
+  --leading-body:1.6;
+  --leading-relaxed:1.65;
+  --leading-tight:1.35;
+
+  --tracking-display:-.03em;
+  --tracking-title:-.02em;
+  --tracking-body:0;
+  --tracking-eyebrow:.1em;
+  --tracking-wordmark:.16em;
+  --tracking-mono:.14em;
+}

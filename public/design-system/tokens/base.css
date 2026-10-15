@@ -1,0 +1,47 @@
+/* Bumi Kala Charta — base layer. Element defaults only; no components live here. */
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;font-family:var(--font-body);font-size:var(--text-body);line-height:var(--leading-body);color:var(--text-default);background:var(--surface-page);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+h1,h2,h3,h4,h5,h6{margin:0;color:var(--text-strong);font-weight:var(--weight-semibold);letter-spacing:var(--tracking-title);line-height:var(--leading-title);text-wrap:pretty}
+h1{font-size:var(--text-display-2);letter-spacing:var(--tracking-display);line-height:var(--leading-display)}
+h2{font-size:var(--text-title-1)}
+h3{font-size:var(--text-title-3)}
+p{margin:0;text-wrap:pretty}
+a{color:var(--text-brand);text-decoration:none;transition:color var(--duration-fast) var(--ease-standard)}
+a:hover{color:var(--action-brand-hover)}
+a:active{color:var(--action-brand-press)}
+a:focus-visible{outline:2px solid var(--focus-ring);outline-offset:2px;border-radius:var(--radius-xs)}
+strong{font-weight:var(--weight-semibold);color:var(--text-strong)}
+small{font-size:var(--text-caption)}
+code,kbd,samp{font-family:var(--font-data);font-size:.92em}
+hr{border:0;border-top:1px solid var(--border-subtle);margin:var(--space-6) 0}
+img{max-width:100%;display:block}
+ul,ol{margin:0;padding:0;list-style:none}
+button,input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--focus-ring);outline-offset:2px}
+::selection{background:var(--surface-brand-soft);color:var(--text-strong)}
+
+/* Utilities used across BKC surfaces. */
+.bkc-eyebrow{font-family:var(--font-data);font-size:var(--text-eyebrow);letter-spacing:var(--tracking-mono);text-transform:uppercase;color:var(--text-subtle)}
+.bkc-wordmark{font-family:var(--font-sans);font-weight:var(--weight-bold);letter-spacing:var(--tracking-wordmark);text-transform:uppercase;color:var(--text-strong)}
+
+/* Frosted glass for elements floating over a map, a photo, or the green contour field.
+   Never over a plain page or card — there is nothing behind it to frost.
+   Variant: omit (light, over maps and photos) / data-glass="brand" (over green) / data-glass="ink" (white text over photos). */
+.bkc-glass{
+  --glass-bg:var(--surface-glass);--glass-border:var(--border-glass);
+  background:var(--glass-bg);
+  border:1px solid var(--glass-border);
+  box-shadow:inset 0 1px 0 var(--glass-border),var(--shadow-glass);
+  -webkit-backdrop-filter:blur(var(--glass-blur)) saturate(var(--glass-saturate));
+  backdrop-filter:blur(var(--glass-blur)) saturate(var(--glass-saturate))}
+.bkc-glass[data-glass="brand"]{--glass-bg:var(--surface-glass-brand);--glass-border:var(--border-glass-brand);color:var(--text-on-dark)}
+.bkc-glass[data-glass="ink"]{--glass-bg:var(--surface-glass-ink);--glass-border:var(--border-glass-ink);color:var(--text-on-dark)}
+/* Solid fallback when blur is unsupported or the reader asks for less transparency. */
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
+  .bkc-glass{--glass-bg:rgba(255,255,255,.94)}
+  .bkc-glass[data-glass="brand"]{--glass-bg:var(--green-600)}
+  .bkc-glass[data-glass="ink"]{--glass-bg:rgba(27,34,30,.9)}}
+@media (prefers-reduced-transparency:reduce){
+  .bkc-glass{--glass-bg:rgba(255,255,255,.94)}
+  .bkc-glass[data-glass="brand"]{--glass-bg:var(--green-600)}
+  .bkc-glass[data-glass="ink"]{--glass-bg:rgba(27,34,30,.9)}}

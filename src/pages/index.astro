@@ -1,0 +1,60 @@
+---
+import Layout from "../layouts/layout.astro";
+
+const title = "Peta";
+---
+
+<Layout title={title}>
+	<div class="bkc-map-shell">
+		<div id="map" class="bkc-map"></div>
+
+		<aside id="sidebar" class="bkc-sidebar" aria-live="polite">
+			<div class="bkc-sidebar__scroll">
+				<button
+					id="sidebar-close"
+					class="bkc-sidebar__close"
+					type="button"
+					aria-label="Tutup panel"
+				>
+					<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+						<path d="M18 6 6 18M6 6l12 12" />
+					</svg>
+				</button>
+
+				<div class="bkc-sidebar__photo-wrap">
+					<img id="sidebar-gambar" class="bkc-sidebar__photo" src="" alt="" />
+				</div>
+
+				<div class="bkc-sidebar__body">
+					<div class="bkc-sidebar__title-row">
+						<img id="sidebar-logo" class="bkc-sidebar__logo" src="" alt="" />
+						<h2 id="sidebar-nama" class="bkc-sidebar__nama"></h2>
+					</div>
+
+					<p id="sidebar-alamat" class="bkc-sidebar__alamat"></p>
+
+					<div class="bkc-sidebar__rating">
+						<span class="bkc-eyebrow">Rating</span>
+						<span id="sidebar-rating-value" class="bkc-sidebar__rating-value"></span>
+						<span id="sidebar-rating-stars" class="bkc-sidebar__stars"></span>
+					</div>
+
+					<p id="sidebar-deskripsi" class="bkc-sidebar__deskripsi"></p>
+				</div>
+
+				<div class="bkc-sidebar__footer">
+					<a id="sidebar-info" href="/info" class="bkc-sidebar__cta">
+						Informasi selengkapnya
+						<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+							<path d="M5 12h14M13 6l6 6-6 6" />
+						</svg>
+					</a>
+				</div>
+			</div>
+		</aside>
+	</div>
+
+	<script>
+		import "../scripts/peta-map.js";
+	</script>
+</Layout>

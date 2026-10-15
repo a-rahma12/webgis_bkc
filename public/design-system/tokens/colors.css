@@ -1,0 +1,116 @@
+/* Bumi Kala Charta — colour system.
+   Brand values are exactly as published in the BKC Brand Guideline (2026):
+   #358C67 primary green · #0D8C23 bright green · #EA9012 orange
+   #EDECE9 paper · #FFFFFF white · #000000 black
+   The emblem contributes two further values: the dark ring and the mid-grey stratum band. */
+:root{
+  /* ---- brand core (guideline, verbatim) ---- */
+  --bkc-green:#358C67;
+  --bkc-green-bright:#0D8C23;
+  --bkc-orange:#EA9012;
+  --bkc-paper:#EDECE9;
+  --bkc-white:#FFFFFF;
+  --bkc-black:#000000;
+  /* ---- emblem-derived ---- */
+  --bkc-ring:#232826;
+  --bkc-stratum:#9BA1A6;
+
+  /* ---- green scale (from --bkc-green) ---- */
+  --green-50:#EDF5F1;
+  --green-100:#D6E9DF;
+  --green-200:#AED3C1;
+  --green-300:#7FBB9E;
+  --green-400:#55A47F;
+  --green-500:#358C67;
+  --green-600:#2B7355;
+  --green-700:#215A43;
+  --green-800:#194433;
+  --green-900:#112D22;
+
+  /* ---- orange scale (from --bkc-orange) ---- */
+  --orange-50:#FDF4E7;
+  --orange-100:#FBE6C6;
+  --orange-200:#F6CB8A;
+  --orange-300:#F1AF4E;
+  --orange-400:#EA9012;
+  --orange-500:#D0800C;
+  --orange-600:#A96708;
+  --orange-700:#7F4E06;
+  --orange-800:#573604;
+  --orange-900:#331F02;
+
+  /* ---- warm neutrals (anchored on --bkc-paper) ---- */
+  --neutral-0:#FFFFFF;
+  --neutral-50:#FAF9F7;
+  --neutral-100:#F4F3F0;
+  --neutral-150:#EDECE9;
+  --neutral-200:#E3E1DC;
+  --neutral-300:#D0CDC6;
+  --neutral-400:#AFACA4;
+  --neutral-500:#8A8880;
+  --neutral-600:#6B726B;
+  --neutral-700:#4A524C;
+  --neutral-800:#2F3632;
+  --neutral-900:#1B221E;
+  --neutral-950:#101512;
+
+  /* ---- semantic: text ---- */
+  --text-strong:var(--neutral-900);
+  --text-default:var(--neutral-700);
+  --text-muted:var(--neutral-600);
+  --text-subtle:var(--neutral-500);
+  --text-brand:var(--bkc-green);
+  --text-accent:var(--orange-500);
+  --text-on-brand:var(--bkc-white);
+  --text-on-dark:rgba(255,255,255,.82);
+  --text-on-dark-muted:rgba(255,255,255,.58);
+
+  /* ---- semantic: surface ---- */
+  --surface-page:var(--bkc-white);
+  --surface-sunken:var(--neutral-100);
+  --surface-card:var(--bkc-white);
+  --surface-card-muted:var(--neutral-150);
+  --surface-brand:var(--bkc-green);
+  --surface-brand-soft:rgba(53,140,103,.10);
+  --surface-accent:var(--bkc-orange);
+  --surface-accent-soft:rgba(234,144,18,.12);
+  --surface-dark:var(--neutral-900);
+  --surface-overlay:rgba(27,34,30,.44);
+  /* glass — only over maps, photos, or the green contour field; see .bkc-glass */
+  --surface-glass:rgba(255,255,255,.62);
+  --surface-glass-brand:rgba(255,255,255,.12);
+  --surface-glass-ink:rgba(27,34,30,.48);
+
+  /* ---- semantic: border ---- */
+  --border-subtle:#EAE8E3;
+  --border-default:var(--neutral-300);
+  --border-strong:var(--neutral-900);
+  --border-brand:var(--bkc-green);
+  --border-on-dark:rgba(255,255,255,.22);
+  --border-glass:rgba(255,255,255,.72);
+  --border-glass-brand:rgba(255,255,255,.24);
+  --border-glass-ink:rgba(255,255,255,.14);
+
+  /* ---- semantic: interactive ---- */
+  --action-primary:var(--neutral-900);
+  --action-primary-hover:var(--bkc-green);
+  --action-primary-press:var(--green-700);
+  --action-brand:var(--bkc-green);
+  --action-brand-hover:var(--green-600);
+  --action-brand-press:var(--green-700);
+  --action-accent:var(--bkc-orange);
+  --action-accent-hover:var(--orange-500);
+  --action-accent-press:var(--orange-600);
+  --action-ghost-hover:var(--neutral-100);
+  --focus-ring:var(--bkc-green);
+
+  /* ---- semantic: status ---- */
+  --status-success:var(--bkc-green-bright);
+  --status-success-soft:#E4F4E6;
+  --status-warning:var(--bkc-orange);
+  --status-warning-soft:var(--orange-50);
+  --status-danger:#B3261E;
+  --status-danger-soft:#FBEAE9;
+  --status-info:var(--bkc-stratum);
+  --status-info-soft:#EEF0F1;
+}

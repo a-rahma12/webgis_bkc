@@ -1,0 +1,57 @@
+@import url("contour-plates.css");
+/* Bumi Kala Charta — brand pattern layer.
+   Primary motif: topographic contours. The artwork is real contour geometry —
+   a synthetic heightfield traced with marching squares — so the lines read as
+   nested closed loops with index contours carrying double weight and spacing that
+   tightens on steep ground. The default is a CLOSE CROP of terrain — 7 intervals at a
+   1200px tile, broad sweeps and open ground — not a whole map sheet; density="dense"
+   swaps in the busier field plate for small surfaces that want texture. Four plates
+   live in /assets (contour, -loose, -dense, -summit); contour-plates.css carries the
+   same four inlined for CSS masking.
+   Plates are applied as masks, so line colour is just background-color — recolour
+   with --c and never edit the SVG.
+   Secondary motif: globe graticule + orbit arcs (CSS-drawn).
+   Usage: put a .bkc-contour (or .bkc-orbit) element as an absolutely-positioned
+   sibling behind content — it never carries content itself. */
+:root{
+  --contour-line-on-brand:rgba(255,255,255,.36);
+  --contour-line-on-light:rgba(53,140,103,.34);
+  --contour-line-on-accent:rgba(255,255,255,.40);
+  --contour-line-on-dark:rgba(255,255,255,.20);
+  --contour-tile:1200px;
+  --contour-tile-dense:620px;
+  --contour-tile-loose:1700px;
+}
+.bkc-contour{position:absolute;inset:0;pointer-events:none;
+  --c:var(--contour-line-on-brand);
+  --tile:var(--contour-tile);
+  --plate:var(--plate-contour);
+  background-color:var(--c);
+  -webkit-mask-image:var(--plate);mask-image:var(--plate);
+  -webkit-mask-size:var(--tile) var(--tile);mask-size:var(--tile) var(--tile);
+  -webkit-mask-repeat:repeat;mask-repeat:repeat;
+  -webkit-mask-position:center;mask-position:center}
+/* Tone + density are data attributes, shared by both motifs: data-pattern-tone / data-pattern-density */
+[data-pattern-tone="light"]{--c:var(--contour-line-on-light)}
+[data-pattern-tone="accent"]{--c:var(--contour-line-on-accent)}
+[data-pattern-tone="dark"]{--c:var(--contour-line-on-dark)}
+[data-pattern-density="dense"]{--tile:var(--contour-tile-dense);--plate:var(--plate-contour-dense)}
+[data-pattern-density="loose"]{--tile:var(--contour-tile-loose);--plate:var(--plate-contour-loose)}
+/* Summit variant: a composed 16:9 hero terrain — one dominant summit lower-left, a
+   secondary rise upper-right, a valley between. Does not tile; it always covers the
+   frame, so it stays a whole landscape at any size. Ignores --tile. */
+.bkc-contour--ridge{
+  -webkit-mask-image:var(--plate-contour-summit);mask-image:var(--plate-contour-summit);
+  -webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;
+  -webkit-mask-size:cover;mask-size:cover;
+  -webkit-mask-position:center;mask-position:center}
+
+/* Globe: latitude/longitude graticule with two orbit arcs, centred on the element. */
+.bkc-orbit{position:absolute;inset:0;pointer-events:none;overflow:hidden;--c:var(--contour-line-on-brand);--globe:340px;--orbit-x:50%;--orbit-y:55%;--contour-weight:1.6px}
+.bkc-orbit i{position:absolute;left:var(--orbit-x);top:var(--orbit-y);border:var(--contour-weight) solid var(--c);border-radius:50%;display:block}
+.bkc-orbit i:nth-child(1){width:var(--globe);height:var(--globe);margin:calc(var(--globe) / -2) 0 0 calc(var(--globe) / -2)}
+.bkc-orbit i:nth-child(2){width:var(--globe);height:calc(var(--globe) * .35);margin:calc(var(--globe) * -.175) 0 0 calc(var(--globe) / -2)}
+.bkc-orbit i:nth-child(3){width:var(--globe);height:calc(var(--globe) * .68);margin:calc(var(--globe) * -.34) 0 0 calc(var(--globe) / -2)}
+.bkc-orbit i:nth-child(4){width:calc(var(--globe) * .35);height:var(--globe);margin:calc(var(--globe) / -2) 0 0 calc(var(--globe) * -.175)}
+.bkc-orbit i:nth-child(5){width:calc(var(--globe) * 1.38);height:calc(var(--globe) * 1.38);margin:calc(var(--globe) * -.69) 0 0 calc(var(--globe) * -.69);transform:rotate(-24deg) scaleY(.4)}
+.bkc-orbit i:nth-child(6){width:calc(var(--globe) * 1.65);height:calc(var(--globe) * 1.65);margin:calc(var(--globe) * -.825) 0 0 calc(var(--globe) * -.825);transform:rotate(28deg) scaleY(.3)}

@@ -1,0 +1,37 @@
+---
+const { title } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>{title} | Bumi Kala Charta</title>
+
+	<!-- Design system BKC: satu link ini sudah membawa token warna, tipografi,
+	     spacing, shape, pattern, dan font IBM Plex yang di-self-host. -->
+	<link rel="stylesheet" href="/design-system/styles.css" />
+	<link rel="stylesheet" href="/styles/peta.css" />
+</head>
+<body class="bkc-body">
+	<header class="bkc-site-header">
+		<a href="/" class="bkc-site-header__brand">
+			<img
+				src="/design-system/assets/logo-emblem.png"
+				alt="Bumi Kala Charta"
+				width="38"
+				height="38"
+			/>
+			<span class="bkc-wordmark">Bumi Kala Charta</span>
+		</a>
+	</header>
+
+	<main class="bkc-site-main">
+		<slot>
+			<p class="catatan">data belum tersedia...</p>
+			<a href="/" class="back">Kembali ke Peta</a>
+		</slot>
+	</main>
+</body>
+</html>

@@ -1,0 +1,29 @@
+/* Bumi Kala Charta — spacing & layout. 4px base; page gutters are generous by intent. */
+:root{
+  --space-0:0;
+  --space-1:4px;
+  --space-2:8px;
+  --space-3:12px;
+  --space-4:16px;
+  --space-5:20px;
+  --space-6:24px;
+  --space-7:32px;
+  --space-8:40px;
+  --space-9:48px;
+  --space-10:56px;
+  --space-11:64px;
+  --space-12:80px;
+  --space-13:96px;
+
+  --gutter-page:56px;
+  --gutter-page-compact:32px;
+  --gap-card:20px;
+  --gap-grid:16px;
+  --pad-card:24px;
+  --pad-card-lg:28px;
+  --pad-section:58px;
+
+  --width-content:1280px;
+  --width-prose:34em;
+  --width-measure:38em;
+}

@@ -1,0 +1,426 @@
+/* =========================================================================
+   Peta Rumah Sakit — Bumi Kala Charta
+   Menggunakan token dari /design-system/styles.css. Tidak ada nilai warna,
+   radius, atau spacing mentah di file ini — semua mengacu ke var(--...).
+   ========================================================================= */
+
+html, body {
+	height: 100%;
+}
+
+.bkc-body {
+	display: flex;
+	flex-direction: column;
+	height: 100vh;
+	overflow: hidden;
+}
+
+/* ---- Header situs (sesuai pola SiteHeader design system: kaca putih,
+        sticky, border bawah tipis) ---- */
+.bkc-site-header {
+	position: sticky;
+	top: 0;
+	z-index: 40;
+	display: flex;
+	align-items: center;
+	padding: var(--space-4) var(--gutter-page-compact);
+	background: rgba(255, 255, 255, 0.92);
+	-webkit-backdrop-filter: blur(8px);
+	backdrop-filter: blur(8px);
+	border-bottom: 1px solid var(--border-subtle);
+	flex-shrink: 0;
+}
+
+.bkc-site-header__brand {
+	display: inline-flex;
+	align-items: center;
+	gap: var(--space-3);
+}
+
+.bkc-site-header__brand .bkc-wordmark {
+	font-size: 14px;
+}
+
+.bkc-site-main {
+	/* Sengaja TIDAK diberi display:flex di sini. Ini cukup jadi kotak
+	   dengan tinggi pasti (flex:1 dari .bkc-body) — soal isinya ditata
+	   flex/block, itu urusan elemen di dalam slot masing-masing halaman
+	   (.bkc-map-shell mengatur dirinya sendiri; halaman kosong di bawah
+	   cukup alur normal atas-bawah). */
+	flex: 1;
+	min-height: 0;
+}
+
+/* ---- Shell peta + sidebar ---- */
+.bkc-map-shell {
+	position: relative;
+	display: flex;
+	width: 100%;
+	height: 100%;
+}
+
+.bkc-map {
+	flex: 1 1 auto;
+	min-width: 0;
+	height: 100%;
+	background: var(--neutral-150);
+}
+
+/* ---- Kontrol Leaflet, digayakan sebagai .bkc-glass mengambang ---- */
+.leaflet-control {
+	margin: var(--space-4) !important;
+}
+
+.leaflet-control-zoom {
+	border: none !important;
+	overflow: hidden;
+	background: var(--surface-glass) !important;
+	border: 1px solid var(--border-glass) !important;
+	border-radius: var(--radius-md) !important;
+	box-shadow: inset 0 1px 0 var(--border-glass), var(--shadow-glass) !important;
+	-webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+	backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+}
+
+.leaflet-control-zoom a {
+	width: 34px !important;
+	height: 34px !important;
+	line-height: 34px !important;
+	background: transparent !important;
+	border: none !important;
+	color: var(--text-muted) !important;
+	font-family: var(--font-sans);
+	transition: background var(--duration-fast) var(--ease-standard), color var(--duration-fast) var(--ease-standard);
+}
+
+.leaflet-control-zoom a:hover {
+	background: var(--surface-brand-soft) !important;
+	color: var(--bkc-green) !important;
+}
+
+.leaflet-control-zoom-in {
+	border-bottom: 1px solid var(--border-subtle) !important;
+}
+
+.leaflet-control-attribution {
+	background: var(--surface-glass) !important;
+	-webkit-backdrop-filter: blur(var(--glass-blur));
+	backdrop-filter: blur(var(--glass-blur));
+	border-radius: var(--radius-xs) !important;
+	font-family: var(--font-data);
+	font-size: 10px;
+	color: var(--text-subtle);
+	padding: 2px 6px !important;
+}
+
+/* ---- Marker titik rumah sakit ----
+   Lingkaran hijau (istirahat) -> lebih gelap + membesar (hover)
+   -> oranye (dipilih), meniru pola titik kontrol pada MapCanvas dashboard. */
+.bkc-marker {
+	width: 28px;
+	height: 28px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.bkc-marker__dot {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 24px;
+	height: 24px;
+	border-radius: var(--radius-pill);
+	background: var(--bkc-green);
+	border: 2.5px solid var(--bkc-white);
+	box-shadow: var(--shadow-sm);
+	transition: background var(--duration-base) var(--ease-standard),
+		transform var(--duration-base) var(--ease-standard),
+		box-shadow var(--duration-base) var(--ease-standard);
+}
+
+.bkc-marker__dot svg {
+	width: 12px;
+	height: 12px;
+	stroke: var(--bkc-white);
+}
+
+.bkc-marker.is-hover .bkc-marker__dot {
+	background: var(--green-600);
+	box-shadow: var(--shadow-float);
+	transform: scale(1.15);
+}
+
+.bkc-marker.is-selected .bkc-marker__dot {
+	background: var(--bkc-orange);
+	box-shadow: var(--shadow-float);
+	transform: scale(1.2);
+}
+
+/* Tooltip nama rumah sakit saat hover */
+.leaflet-tooltip.bkc-tooltip {
+	background: var(--bkc-white);
+	border: 1px solid var(--border-subtle);
+	border-radius: var(--radius-sm);
+	box-shadow: var(--shadow-sm);
+	color: var(--text-strong);
+	font-family: var(--font-sans);
+	font-size: var(--text-caption);
+	font-weight: var(--weight-medium);
+	padding: 4px 10px;
+}
+
+.leaflet-tooltip-top.bkc-tooltip::before {
+	border-top-color: var(--bkc-white);
+}
+
+/* ---- Sidebar detail rumah sakit ---- */
+.bkc-sidebar {
+	position: relative;
+	flex: 0 0 0;
+	width: 0;
+	height: 100%;
+	overflow: hidden;
+	background: var(--surface-card);
+	border-left: 1px solid var(--border-subtle);
+	transition: width var(--duration-slow) var(--ease-standard),
+		flex-basis var(--duration-slow) var(--ease-standard);
+}
+
+.bkc-map-shell.has-selection .bkc-sidebar {
+	flex: 0 0 400px;
+	width: 400px;
+}
+
+.bkc-sidebar__scroll {
+	width: 400px;
+	height: 100%;
+	overflow-y: auto;
+	display: flex;
+	flex-direction: column;
+}
+
+.bkc-sidebar__close {
+	position: absolute;
+	top: var(--space-4);
+	right: var(--space-4);
+	z-index: 2;
+	display: inline-grid;
+	place-items: center;
+	width: 32px;
+	height: 32px;
+	border: none;
+	border-radius: var(--radius-sm);
+	background: var(--surface-glass);
+	color: var(--text-muted);
+	cursor: pointer;
+	-webkit-backdrop-filter: blur(var(--glass-blur));
+	backdrop-filter: blur(var(--glass-blur));
+	transition: background var(--duration-fast) var(--ease-standard), color var(--duration-fast) var(--ease-standard);
+}
+
+.bkc-sidebar__close:hover {
+	background: var(--action-ghost-hover);
+	color: var(--text-strong);
+}
+
+.bkc-sidebar__photo-wrap {
+	padding: var(--pad-card) var(--pad-card) 0;
+}
+
+.bkc-sidebar__photo {
+	width: 100%;
+	height: 220px;
+	object-fit: cover;
+	border-radius: var(--radius-band);
+	background: var(--neutral-150);
+	display: block;
+}
+
+.bkc-sidebar__body {
+	padding: var(--space-6) var(--pad-card) 0;
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-4);
+}
+
+.bkc-sidebar__title-row {
+	display: flex;
+	align-items: center;
+	gap: var(--space-3);
+}
+
+.bkc-sidebar__logo {
+	width: 36px;
+	height: 36px;
+	border-radius: var(--radius-sm);
+	object-fit: contain;
+	background: var(--neutral-100);
+	flex-shrink: 0;
+}
+
+.bkc-sidebar__nama {
+	font-size: var(--text-title-2);
+	line-height: var(--leading-title);
+}
+
+.bkc-sidebar__alamat {
+	font-size: var(--text-body-sm);
+	color: var(--text-muted);
+	line-height: var(--leading-relaxed);
+}
+
+.bkc-sidebar__rating {
+	display: flex;
+	align-items: center;
+	gap: var(--space-2);
+	font-size: var(--text-body-sm);
+	color: var(--text-default);
+}
+
+.bkc-sidebar__rating-value {
+	font-family: var(--font-data);
+	font-weight: var(--weight-medium);
+	letter-spacing: var(--tracking-mono);
+	color: var(--text-strong);
+}
+
+.bkc-sidebar__stars {
+	display: inline-flex;
+	align-items: center;
+	gap: 2px;
+}
+
+.bkc-sidebar__stars svg {
+	width: 14px;
+	height: 14px;
+}
+
+.bkc-star--full {
+	fill: var(--bkc-orange);
+	stroke: var(--bkc-orange);
+}
+
+.bkc-star--empty {
+	fill: none;
+	stroke: var(--neutral-300);
+}
+
+.bkc-sidebar__deskripsi {
+	font-size: var(--text-body);
+	color: var(--text-default);
+	line-height: var(--leading-relaxed);
+	max-width: var(--width-measure);
+}
+
+.bkc-sidebar__footer {
+	margin-top: auto;
+	padding: var(--space-6) var(--pad-card) var(--pad-card);
+}
+
+.bkc-sidebar__cta {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: var(--space-2);
+	width: 100%;
+	padding: 14px 24px;
+	border-radius: var(--radius-pill);
+	background: var(--action-brand);
+	color: var(--bkc-white);
+	font-family: var(--font-sans);
+	font-weight: var(--weight-medium);
+	font-size: var(--text-body);
+	text-decoration: none;
+	border: 1px solid transparent;
+	cursor: pointer;
+	transition: background var(--duration-base) var(--ease-standard),
+		transform var(--duration-fast) var(--ease-standard);
+}
+
+.bkc-sidebar__cta:hover {
+	background: var(--action-brand-hover);
+	color: var(--bkc-white);
+}
+
+.bkc-sidebar__cta:active {
+	background: var(--action-brand-press);
+	transform: scale(0.985);
+}
+
+.bkc-sidebar__cta svg {
+	width: 16px;
+	height: 16px;
+	transition: transform var(--duration-fast) var(--ease-standard);
+}
+
+.bkc-sidebar__cta:hover svg {
+	transform: translateX(3px);
+}
+
+/* ---- Sidebar sebagai overlay penuh di layar sempit ---- */
+@media (max-width: 768px) {
+	.bkc-map-shell.has-selection .bkc-sidebar {
+		position: absolute;
+		inset: 0;
+		flex-basis: auto;
+		width: 100%;
+		z-index: 30;
+		border-left: none;
+	}
+
+	.bkc-sidebar__scroll {
+		width: 100%;
+	}
+}
+
+/* =========================================================================
+   Halaman kosong / fallback
+   Ini isian default <slot> di layout.astro — tampil selama sebuah halaman
+   (mis. /info) belum punya konten sungguhan sendiri.
+   ========================================================================= */
+
+.catatan {
+	margin: var(--space-9) 0 var(--space-6) var(--gutter-page-compact);
+	font-size: var(--text-body);
+	color: var(--text-muted);
+}
+
+.back {
+	display: inline-flex;
+	align-items: center;
+	gap: var(--space-2);
+	margin-left: var(--gutter-page-compact);
+	padding: 14px 28px;
+	border-radius: var(--radius-pill);
+	background: var(--action-brand);
+	color: var(--bkc-white);
+	font-family: var(--font-sans);
+	font-weight: var(--weight-medium);
+	font-size: var(--text-body);
+	text-decoration: none;
+	border: 1px solid transparent;
+	cursor: pointer;
+	transition: background var(--duration-base) var(--ease-standard),
+		transform var(--duration-fast) var(--ease-standard);
+}
+
+.back::before {
+	content: "←";
+	line-height: 1;
+	transition: transform var(--duration-fast) var(--ease-standard);
+}
+
+.back:hover {
+	background: var(--action-brand-hover);
+	color: var(--bkc-white);
+}
+
+.back:hover::before {
+	transform: translateX(-3px);
+}
+
+.back:active {
+	background: var(--action-brand-press);
+	transform: scale(0.985);
+}

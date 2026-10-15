@@ -1,0 +1,38 @@
+/* Bumi Kala Charta — radii, elevation, motion.
+   Rounded but never bubbly: pills for actions, 20px for cards, 24-28px for full-bleed bands. */
+:root{
+  --radius-none:0;
+  --radius-xs:6px;
+  --radius-sm:8px;
+  --radius-md:12px;
+  --radius-lg:16px;
+  --radius-card:20px;
+  --radius-band:24px;
+  --radius-hero:28px;
+  --radius-pill:999px;
+
+  /* elevation — warm ink shadows, never black */
+  --shadow-none:none;
+  --shadow-xs:0 1px 2px rgba(27,34,30,.06);
+  --shadow-sm:0 2px 6px rgba(27,34,30,.07);
+  --shadow-card:0 14px 30px rgba(27,34,30,.09);
+  --shadow-float:0 12px 32px rgba(27,34,30,.12);
+  --shadow-overlay:0 24px 60px rgba(27,34,30,.22);
+  --shadow-inset-hairline:inset 0 0 0 1px var(--border-subtle);
+  --ring-focus:0 0 0 3px rgba(53,140,103,.28);
+  --shadow-glass:0 12px 32px rgba(27,34,30,.14);
+
+  /* glass — one blur for every size; surfaces and borders live in colors.css */
+  --glass-blur:5px; /* @kind other */
+  --glass-saturate:140%; /* @kind other */
+
+  /* motion — short, eased, no bounce */
+  --ease-standard:cubic-bezier(.2,0,0,1); /* @kind other */
+  --ease-out:cubic-bezier(0,0,.2,1); /* @kind other */
+  --duration-fast:120ms; /* @kind other */
+  --duration-base:180ms; /* @kind other */
+  --duration-slow:280ms; /* @kind other */
+  --lift-hover:translateY(-2px); /* @kind other */
+  --lift-card-hover:translateY(-3px); /* @kind other */
+  --press-scale:.985; /* @kind other */
+}
